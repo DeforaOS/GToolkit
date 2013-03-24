@@ -2,18 +2,18 @@ TARGETS	= libGToolkit.a libGToolkit.so.0.0 libGToolkit.so.0 libGToolkit.so
 PREFIX	= /usr/local
 DESTDIR	=
 LIBDIR	= $(PREFIX)/lib
-CC	?= cc
+CC	= cc
 CPPFLAGSF= -I ../include
-CPPFLAGS?=
+CPPFLAGS=
 CFLAGSF	= -W `pkg-config --cflags gl`
 CFLAGS	= -Wall -fPIC -g -O2 -pedantic
-AR	?= ar
-RANLIB	?= ranlib
-CCSHARED?= $(CC) -shared
-RM	?= rm -f
-LN	?= ln -f
-MKDIR	?= mkdir -p
-INSTALL	?= install
+AR	= ar
+RANLIB	= ranlib
+CCSHARED= $(CC) -shared
+RM	= rm -f
+LN	= ln -f
+MKDIR	= mkdir -m 0755 -p
+INSTALL	= install
 
 
 all: $(TARGETS)
