@@ -48,8 +48,8 @@ distclean: clean
 
 install: $(TARGETS)
 	$(MKDIR) $(DESTDIR)$(PREFIX)/lib
-	$(INSTALL) -m 0644 -- libGToolkit.a $(DESTDIR)$(PREFIX)/lib/libGToolkit.a
-	$(INSTALL) -m 0755 -- libGToolkit.so.0.0 $(DESTDIR)$(PREFIX)/lib/libGToolkit.so.0.0
+	$(INSTALL) -m 0644 libGToolkit.a $(DESTDIR)$(PREFIX)/lib/libGToolkit.a
+	$(INSTALL) -m 0755 libGToolkit.so.0.0 $(DESTDIR)$(PREFIX)/lib/libGToolkit.so.0.0
 	$(LN) -s -- libGToolkit.so.0.0 $(DESTDIR)$(PREFIX)/lib/libGToolkit.so.0
 	$(LN) -s -- libGToolkit.so.0.0 $(DESTDIR)$(PREFIX)/lib/libGToolkit.so
 

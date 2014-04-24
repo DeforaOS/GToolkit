@@ -22,7 +22,7 @@ distclean:
 install:
 	@for i in $(SUBDIRS); do (cd "$$i" && $(MAKE) install) || exit; done
 	$(MKDIR) $(DESTDIR)$(INCLUDEDIR)
-	$(INSTALL) -m 0644 -- GToolkit.h $(DESTDIR)$(INCLUDEDIR)/GToolkit.h
+	$(INSTALL) -m 0644 GToolkit.h $(DESTDIR)$(INCLUDEDIR)/GToolkit.h
 
 uninstall:
 	@for i in $(SUBDIRS); do (cd "$$i" && $(MAKE) uninstall) || exit; done

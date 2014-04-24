@@ -15,9 +15,9 @@ distclean: clean
 
 install:
 	$(MKDIR) $(DESTDIR)$(INCLUDEDIR)
-	$(INSTALL) -m 0644 -- GWidget.h $(DESTDIR)$(INCLUDEDIR)/GWidget.h
+	$(INSTALL) -m 0644 GWidget.h $(DESTDIR)$(INCLUDEDIR)/GWidget.h
 	$(MKDIR) $(DESTDIR)$(INCLUDEDIR)
-	$(INSTALL) -m 0644 -- GWindow.h $(DESTDIR)$(INCLUDEDIR)/GWindow.h
+	$(INSTALL) -m 0644 GWindow.h $(DESTDIR)$(INCLUDEDIR)/GWindow.h
 
 uninstall:
 	$(RM) -- $(DESTDIR)$(INCLUDEDIR)/GWidget.h
