@@ -19,9 +19,9 @@ distclean:
 	@for i in $(SUBDIRS); do (cd "$$i" && $(MAKE) distclean) || exit; done
 
 dist:
-	$(RM) -r -- $(PACKAGE)-$(VERSION)
-	$(LN) -s -- . $(PACKAGE)-$(VERSION)
-	@$(TAR) -czvf $(PACKAGE)-$(VERSION).tar.gz -- \
+	$(RM) -r -- $(OBJDIR)$(PACKAGE)-$(VERSION)
+	$(LN) -s -- "$$PWD" $(OBJDIR)$(PACKAGE)-$(VERSION)
+	@cd $(OBJDIR). && $(TAR) -czvf $(OBJDIR)$(PACKAGE)-$(VERSION).tar.gz -- \
 		$(PACKAGE)-$(VERSION)/include/GToolkit.h \
 		$(PACKAGE)-$(VERSION)/include/Makefile \
 		$(PACKAGE)-$(VERSION)/include/project.conf \
@@ -41,10 +41,10 @@ dist:
 		$(PACKAGE)-$(VERSION)/tools/project.conf \
 		$(PACKAGE)-$(VERSION)/Makefile \
 		$(PACKAGE)-$(VERSION)/project.conf
-	$(RM) -- $(PACKAGE)-$(VERSION)
+	$(RM) -- $(OBJDIR)$(PACKAGE)-$(VERSION)
 
 distcheck: dist
-	$(TAR) -xzvf $(PACKAGE)-$(VERSION).tar.gz
+	$(TAR) -xzvf $(OBJDIR)$(PACKAGE)-$(VERSION).tar.gz
 	$(MKDIR) -- $(PACKAGE)-$(VERSION)/objdir
 	$(MKDIR) -- $(PACKAGE)-$(VERSION)/destdir
 	(cd "$(PACKAGE)-$(VERSION)" && $(MAKE) OBJDIR="$$PWD/objdir/")
