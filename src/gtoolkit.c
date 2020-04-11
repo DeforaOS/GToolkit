@@ -84,9 +84,18 @@ void gtoolkit_deregister_window(GWindow * gwindow)
 /* gtoolkit_init */
 int gtoolkit_init(void)
 {
-	int attr[] =
+	int attrd[] =
 	{
 		GLX_RGBA, GLX_DOUBLEBUFFER,
+		GLX_RED_SIZE, 4,
+		GLX_GREEN_SIZE, 4,
+		GLX_BLUE_SIZE, 4,
+		GLX_DEPTH_SIZE, 16,
+		None
+	};
+	int attrs[] =
+	{
+		GLX_RGBA,
 		GLX_RED_SIZE, 4,
 		GLX_GREEN_SIZE, 4,
 		GLX_BLUE_SIZE, 4,
@@ -99,8 +108,10 @@ int gtoolkit_init(void)
 	if((_gt.display = XOpenDisplay(NULL)) == NULL)
 		return _gtoolkit_error("Could not open display", 1);
 	_gt.screen = DefaultScreen(_gt.display);
-	if((_gt.visual = glXChooseVisual(_gt.display, _gt.screen, attr))
+	if((_gt.visual = glXChooseVisual(_gt.display, _gt.screen, attrd))
 			== NULL)
+		_gt.visual = glXChooseVisual(_gt.display, _gt.screen, attrs);
+	if(_gt.visual == NULL)
 		return _gtoolkit_error("Could not choose visual", 1);
 	_gt.colormap = XCreateColormap(_gt.display,
 			RootWindow(_gt.display, _gt.screen),
