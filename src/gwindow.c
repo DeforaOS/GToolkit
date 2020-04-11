@@ -37,6 +37,7 @@ GWindow * gwindow_new(void)
 	XVisualInfo * visual;
 	GWindow * gwindow;
 	XSetWindowAttributes attr;
+	Atom a;
 
 	if((gwindow = malloc(sizeof(*gwindow))) == NULL)
 		return NULL; /* FIXME report */
@@ -57,6 +58,8 @@ GWindow * gwindow_new(void)
 			0, visual->depth, InputOutput, visual->visual,
 			CWBorderPixel | CWColormap | CWEventMask, &attr);
 	gwindow->context = glXCreateContext(display, visual, 0, GL_TRUE);
+	a = XInternAtom(display, "WM_DELETE_WINDOW", True);
+	XSetWMProtocols(display, gwindow->window, &a, 1);
 	gtoolkit_register_window(gwindow);
 	return gwindow;
 }
