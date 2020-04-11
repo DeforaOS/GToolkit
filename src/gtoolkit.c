@@ -112,7 +112,8 @@ int gtoolkit_init(void)
 
 
 /* gtoolkit_main */
-static void _main_configure_notify(XConfigureEvent * event);
+static void _main_event_configure(XConfigureEvent * event);
+static void _main_event_expose(XExposeEvent * event);
 
 int gtoolkit_main(void)
 {
@@ -125,21 +126,23 @@ int gtoolkit_main(void)
 		while(XPending(_gt.display) > 0)
 		{
 			XNextEvent(_gt.display, &event);
-#ifdef DEBUG
-			fprintf(stderr, "DEBUG: Event %d\n", event.type);
-#endif
 			switch(event.type)
 			{
 				case ConfigureNotify:
-					_main_configure_notify(&event.xconfigure);
+					_main_event_configure(
+							&event.xconfigure);
 					break;
-#if 0
 				case Expose:
+					_main_event_expose(&event.xexpose);
+					break;
 				case KeyPress:
 				case KeyRelease:
 				case ClientMessage:
-#endif
 				default:
+#ifdef DEBUG
+					fprintf(stderr, "DEBUG: %s() Event %d\n",
+							__func__, event.type);
+#endif
 					break;
 			}
 		}
@@ -148,13 +151,22 @@ int gtoolkit_main(void)
 	return 0;
 }
 
-static void _main_configure_notify(XConfigureEvent * event)
+static void _main_event_configure(XConfigureEvent * event)
 {
 	GWindow * gwindow;
 
 	if((gwindow = _gtoolkit_get_gwindow(event->window)) == NULL)
 		return;
 	gwindow_event_configure(gwindow, event);
+}
+
+static void _main_event_expose(XExposeEvent * event)
+{
+	GWindow * gwindow;
+
+	if((gwindow = _gtoolkit_get_gwindow(event->window)) == NULL)
+		return;
+	gwindow_event_expose(gwindow, event);
 }
 
 

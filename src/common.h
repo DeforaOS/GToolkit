@@ -27,6 +27,7 @@ Window gwindow_get_window(GWindow * gwindow);
 
 /* useful */
 void gwindow_event_configure(GWindow * gwindow, XConfigureEvent * event);
+void gwindow_event_expose(GWindow * gwindow, XExposeEvent * event);
 void gwindow_event_map(GWindow * gwindow, XMapEvent * event);
 
 #endif

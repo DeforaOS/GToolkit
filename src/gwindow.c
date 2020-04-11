@@ -124,6 +124,16 @@ void gwindow_event_configure(GWindow * gwindow, XConfigureEvent * event)
 }
 
 
+/* gwindow_event_expose */
+void gwindow_event_expose(GWindow * gwindow, XExposeEvent * event)
+{
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	glLoadIdentity();
+	/* FIXME redraw the window */
+	glXSwapBuffers(event->display, gwindow->window);
+}
+
+
 /* gwindow_show */
 void gwindow_show(GWindow * gwindow)
 	/* FIXME accept flags (focus...) */
