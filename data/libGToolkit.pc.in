@@ -6,6 +6,6 @@ libdir=${exec_prefix}/lib
 Name: @PACKAGE@
 Description: DeforaOS Graphics toolkit
 Version: @VERSION@
-Requires: gl
+Requires: gl glu
 Cflags: -I${includedir}
 Libs: @RPATH@ -L${libdir} -lGToolkit
