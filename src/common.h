@@ -13,10 +13,6 @@
 /* types */
 typedef struct _GToolkit
 {
-	/* memory */
-	void ** alloced;
-	size_t alloced_cnt;
-
 	/* main loop */
 	int loop;
 
@@ -28,12 +24,5 @@ typedef struct _GToolkit
 
 /* variables */
 extern GToolkit gt;
-
-
-/* useful */
-/* FIXME memory management useful for users of the library as well? */
-void * g_alloc(size_t size);
-void * g_alloced(void * ptr);
-void g_free(void * ptr);
 
 #endif

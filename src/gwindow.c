@@ -29,7 +29,7 @@ GWindow * gwindow_new(void)
 	GWindow * gwindow;
 	XSetWindowAttributes attr;
 
-	if((gwindow = g_alloc(sizeof(*gwindow))) == NULL)
+	if((gwindow = malloc(sizeof(*gwindow))) == NULL)
 		return NULL; /* FIXME report */
 	/* FIXME colormap defined in g_init()? */
 	attr.colormap = XCreateColormap(gt.display,
@@ -51,10 +51,8 @@ GWindow * gwindow_new(void)
 /* gwindow_delete */
 void gwindow_delete(GWindow * gwindow)
 {
-	if(g_alloced(gwindow) != gwindow)
-		return;
 	glXDestroyContext(gt.display, gwindow->context);
-	g_free(gwindow);
+	free(gwindow);
 }
 
 
