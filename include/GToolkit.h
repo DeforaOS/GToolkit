@@ -10,11 +10,9 @@
 
 /* GToolkit */
 /* functions */
-int g_init(void);
-int g_quit(void);
-
 /* useful */
-int g_error(char const * message, int ret);
-int g_main(void);
+int gtoolkit_init(void);
+int gtoolkit_main(void);
+int gtoolkit_quit(void);
 
 #endif /* !GTOOLKIT_GTOOLKIT_H */

@@ -7,22 +7,11 @@
 
 # include <X11/Xlib.h>
 # include <GL/glx.h>
-# include <GToolkit.h>
 
 
-/* types */
-typedef struct _GToolkit
-{
-	/* main loop */
-	int loop;
-
-	/* not portable */
-	Display * display;
-	int screen;
-	XVisualInfo * visual;
-} GToolkit;
-
-/* variables */
-extern GToolkit gt;
+/* GToolkit */
+/* accessors */
+Display * gtoolkit_get_display(void);
+XVisualInfo * gtoolkit_get_visual(void);
 
 #endif
