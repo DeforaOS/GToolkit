@@ -31,6 +31,8 @@
 #ifndef GTOOLKIT_GWINDOW_H
 # define GTOOLKIT_GWINDOW_H
 
+# include <stdbool.h>
+
 
 /* GWindow */
 /* types */
@@ -43,7 +45,9 @@ void gwindow_delete(GWindow * gwindow);
 
 
 /* accessors */
+bool gwindow_get_resizable(GWindow * gwindow);
 char const * gwindow_get_title(GWindow * gwindow);
+void gwindow_set_resizable(GWindow * gwindow, bool resizable);
 void gwindow_set_title(GWindow * gwindow, char const * title);
 
 /* useful */

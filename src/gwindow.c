@@ -44,7 +44,8 @@ struct _GWindow
 
 	/* GWindow */
 	char * title;
-	Bool fullscreen;
+	bool fullscreen;
+	bool resizable;
 	int width;
 	int height;
 
@@ -68,7 +69,8 @@ GWindow * gwindow_new(void)
 	if((gwindow = malloc(sizeof(*gwindow))) == NULL)
 		return NULL; /* FIXME report */
 	gwindow->title = NULL;
-	gwindow->fullscreen = False;
+	gwindow->fullscreen = false;
+	gwindow->resizable = true;
 	gwindow->width = -1;
 	gwindow->height = -1;
 	display = gtoolkit_get_display();
@@ -102,6 +104,13 @@ void gwindow_delete(GWindow * gwindow)
 
 
 /* accessors */
+/* gwindow_get_resizable */
+bool gwindow_get_resizable(GWindow * gwindow)
+{
+	return gwindow->resizable;
+}
+
+
 /* gwindow_get_title */
 char const * gwindow_get_title(GWindow * gwindow)
 {
@@ -113,6 +122,14 @@ char const * gwindow_get_title(GWindow * gwindow)
 Window gwindow_get_window(GWindow * gwindow)
 {
 	return gwindow->window;
+}
+
+
+/* gwindow_set_resizable */
+void gwindow_set_resizable(GWindow * gwindow, bool resizable)
+{
+	/* FIXME really implement */
+	gwindow->resizable = resizable;
 }
 
 
