@@ -123,43 +123,41 @@ int gtoolkit_init(void)
 
 
 /* gtoolkit_main */
+static void _main_event(void);
 static void _main_event_configure(XConfigureEvent * event);
 static void _main_event_expose(XExposeEvent * event);
 
 int gtoolkit_main(void)
 {
+	for(_gt.loop++; _gt.loop >= 1;)
+		while(XPending(_gt.display) > 0)
+			_main_event();
+	return 0;
+}
+
+static void _main_event(void)
+{
 	XEvent event;
 
-	if(_gt.loop != 0)
-		return 1;
-	for(_gt.loop = 1; _gt.loop == 1;)
+	XNextEvent(_gt.display, &event);
+	switch(event.type)
 	{
-		while(XPending(_gt.display) > 0)
-		{
-			XNextEvent(_gt.display, &event);
-			switch(event.type)
-			{
-				case ConfigureNotify:
-					_main_event_configure(
-							&event.xconfigure);
-					break;
-				case Expose:
-					_main_event_expose(&event.xexpose);
-					break;
-				case KeyPress:
-				case KeyRelease:
-				case ClientMessage:
-				default:
+		case ConfigureNotify:
+			_main_event_configure(&event.xconfigure);
+			break;
+		case Expose:
+			_main_event_expose(&event.xexpose);
+			break;
+		case ClientMessage:
+		case KeyPress:
+		case KeyRelease:
+		default:
 #ifdef DEBUG
-					fprintf(stderr, "DEBUG: %s() Event %d\n",
-							__func__, event.type);
+			fprintf(stderr, "DEBUG: %s() Event %d\n", __func__,
+					event.type);
 #endif
-					break;
-			}
-		}
+			break;
 	}
-	_gt.loop = 0;
-	return 0;
 }
 
 static void _main_event_configure(XConfigureEvent * event)
