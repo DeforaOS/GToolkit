@@ -217,6 +217,14 @@ void gwindow_event_expose(GWindow * gwindow, XExposeEvent * event)
 }
 
 
+/* gwindow_move */
+void gwindow_move(GWindow * gwindow, int x, int y)
+{
+	/* XXX may fail */
+	XMoveWindow(gtoolkit_get_display(), gwindow->window, x, y);
+}
+
+
 /* gwindow_resize */
 void gwindow_resize(GWindow * gwindow, int width, int height)
 {
