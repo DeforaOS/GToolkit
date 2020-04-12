@@ -220,9 +220,9 @@ void gwindow_event_expose(GWindow * gwindow, XExposeEvent * event)
 /* gwindow_resize */
 void gwindow_resize(GWindow * gwindow, int width, int height)
 {
-	gwindow->width = (width == -1 || width > 0) ? width : -1;
-	gwindow->height = (height == -1 || height > 0) ? height : -1;
-	/* FIXME actually resize the window */
+	/* XXX may fail */
+	XResizeWindow(gtoolkit_get_display(), gwindow->window,
+			(width > 0) ? width : 1, (height > 0) ? height : 1);
 }
 
 
