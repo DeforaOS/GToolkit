@@ -31,6 +31,7 @@
 #ifndef GTOOLKIT_GTOOLKIT_H
 # define GTOOLKIT_GTOOLKIT_H
 
+# include "GToolkit/GWidget.h"
 # include "GToolkit/GWindow.h"
 
 

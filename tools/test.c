@@ -40,7 +40,7 @@ int main(void)
 		return 2;
 	window = gwindow_new();
 	gwindow_set_title(window, "Test window");
-	gwindow_show(window);
+	gwidget_show(GWIDGET(window));
 	gtoolkit_main();
 	return 0;
 }

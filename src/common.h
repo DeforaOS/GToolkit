@@ -34,8 +34,19 @@
 # include <X11/Xlib.h>
 # include <GL/glu.h>
 # include <GL/glx.h>
+# include <GToolkit.h>
 
 
+/* types */
+typedef enum _GWidgetHandler
+{
+	GWIDGET_HANDLER_SHOW = 0
+} GWidgetHandler;
+# define GWIDGET_HANDLER_LAST GWIDGET_HANDLER_SHOW
+# define GWIDGET_HANDLER_COUNT (GWIDGET_HANDLER_LAST + 1)
+
+
+/* functions */
 /* GToolkit */
 /* accessors */
 Display * gtoolkit_get_display(void);
@@ -45,6 +56,15 @@ XVisualInfo * gtoolkit_get_visual(void);
 /* useful */
 void gtoolkit_register_window(GWindow * gwindow);
 void gtoolkit_deregister_window(GWindow * gwindow);
+
+
+/* GWidget */
+GWidget * gwidget_new(void);
+void gwidget_delete(GWidget * gwidget);
+
+/* useful */
+void gwidget_set_handler(GWidget * gwidget, GWidgetHandler handler, ...);
+void gwidget_set_self(GWidget * gwidget, void * self);
 
 
 /* GWindow */

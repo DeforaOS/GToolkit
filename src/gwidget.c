@@ -1,5 +1,5 @@
 /* $Id$ */
-/* Copyright (c) 2006-2020 Pierre Pronchery <khorben@defora.org> */
+/* Copyright (c) 2020 Pierre Pronchery <khorben@defora.org> */
 /* This file is part of DeforaOS Graphics GToolkit */
 /* All rights reserved.
  *
@@ -28,13 +28,81 @@
 
 
 
-#ifndef GTOOLKIT_GWIDGET_H
-# define GTOOLKIT_GWIDGET_H
+#include <stdarg.h>
+#include <stdlib.h>
+#include "common.h"
 
 
 /* GWidget */
-/* public */
+/* private */
 /* types */
-GWidget * widget;
+typedef void (*GWidgetHandlerSelf)(void * self);
 
-#endif /* !GTOOLKIT_GWIDGET_H */
+struct _GWidget
+{
+	GWidget * gwidget;
+
+	/* GWidget */
+	void * self;
+
+	/* handlers */
+	GWidgetHandlerSelf handler_show;
+};
+
+
+/* public */
+/* functions */
+/* gwidget_new */
+GWidget * gwidget_new(void)
+{
+	GWidget * gwidget;
+
+	if((gwidget = malloc(sizeof(*gwidget))) == NULL)
+		return NULL;
+	gwidget->gwidget = gwidget;
+	gwidget->self = NULL;
+	gwidget->handler_show = NULL;
+	return gwidget;
+}
+
+
+/* gwidget_delete */
+void gwidget_delete(GWidget * gwidget)
+{
+	free(gwidget);
+}
+
+
+/* accessors */
+/* gwidget_set_handler */
+void gwidget_set_handler(GWidget * gwidget, GWidgetHandler handler, ...)
+{
+	va_list ap;
+
+	va_start(ap, handler);
+	switch(handler)
+	{
+		case GWIDGET_HANDLER_SHOW:
+			gwidget->handler_show = va_arg(ap, GWidgetHandlerSelf);
+			break;
+	}
+	va_end(ap);
+}
+
+
+/* gwidget_set_self */
+void gwidget_set_self(GWidget * gwidget, void * self)
+{
+	gwidget->self = self;
+}
+
+
+/* useful */
+/* gwidget_show */
+void gwidget_show(GWidget * gwidget)
+{
+	if(gwidget->gwidget != gwidget)
+		gwidget = gwidget->gwidget;
+	if(gwidget->handler_show != NULL)
+		gwidget->handler_show(gwidget->self);
+}

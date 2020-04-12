@@ -35,5 +35,10 @@
 /* GWidget */
 /* types */
 typedef struct _GWidget GWidget;
+# define GWIDGET(gwidget) (GWidget *)(gwidget)
+
+
+/* functions */
+void gwidget_show(GWidget * gwidget);
 
 #endif /* !GTOOLKIT_GWIDGET_H */

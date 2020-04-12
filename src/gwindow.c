@@ -32,6 +32,7 @@
 #include <string.h>
 #include "GToolkit/GWidget.h"
 #include "GToolkit/GWindow.h"
+#include "GToolkit.h"
 #include "common.h"
 
 
@@ -40,7 +41,7 @@
 /* types */
 struct _GWindow
 {
-#include "gwidget.h"
+	GWidget * gwidget;
 
 	/* GWindow */
 	char * title;
@@ -56,6 +57,10 @@ struct _GWindow
 };
 
 
+/* prototypes */
+static void _gwindow_show(GWindow * gwindow);
+
+
 /* public */
 /* functions */
 /* gwindow_new */
@@ -69,6 +74,14 @@ GWindow * gwindow_new(void)
 
 	if((gwindow = malloc(sizeof(*gwindow))) == NULL)
 		return NULL; /* FIXME report */
+	if((gwindow->gwidget = gwidget_new()) == NULL)
+	{
+		free(gwindow);
+		return NULL;
+	}
+	gwidget_set_self(gwindow->gwidget, gwindow);
+	gwidget_set_handler(gwindow->gwidget, GWIDGET_HANDLER_SHOW,
+			_gwindow_show);
 	gwindow->title = NULL;
 	gwindow->decorated = true;
 	gwindow->fullscreen = false;
@@ -216,8 +229,10 @@ void gwindow_resize(GWindow * gwindow, int width, int height)
 }
 
 
+/* private */
+/* functions */
 /* gwindow_show */
-void gwindow_show(GWindow * gwindow)
+static void _gwindow_show(GWindow * gwindow)
 	/* FIXME accept flags (focus...) */
 {
 	Display * display;
