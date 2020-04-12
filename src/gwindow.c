@@ -225,6 +225,13 @@ void gwindow_move(GWindow * gwindow, int x, int y)
 }
 
 
+/* gwindow_present */
+void gwindow_present(GWindow * gwindow)
+{
+	XMapRaised(gtoolkit_get_display(), gwindow->window);
+}
+
+
 /* gwindow_resize */
 void gwindow_resize(GWindow * gwindow, int width, int height)
 {
@@ -243,6 +250,6 @@ static void _gwindow_show(GWindow * gwindow)
 	Display * display;
 
 	display = gtoolkit_get_display();
-	XMapRaised(display, gwindow->window);
+	XMapWindow(display, gwindow->window);
 	glXMakeCurrent(display, gwindow->window, gwindow->context);
 }

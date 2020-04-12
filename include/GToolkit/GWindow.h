@@ -55,6 +55,7 @@ void gwindow_set_title(GWindow * gwindow, char const * title);
 
 /* useful */
 void gwindow_move(GWindow * gwindow, int x, int y);
+void gwindow_present(GWindow * gwindow);
 void gwindow_resize(GWindow * gwindow, int width, int height);
 
 #endif /* !GTOOLKIT_GWINDOW_H */
