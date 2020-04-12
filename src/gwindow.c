@@ -30,9 +30,6 @@
 
 #include <stdlib.h>
 #include <string.h>
-#include "GToolkit/GWidget.h"
-#include "GToolkit/GWindow.h"
-#include "GToolkit.h"
 #include "common.h"
 
 
