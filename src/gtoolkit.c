@@ -17,7 +17,7 @@ typedef struct _GToolkit
 	int init;
 
 	/* main loop */
-	int loop;
+	unsigned int loop;
 
 	GWindow ** windows;
 	size_t windows_cnt;
@@ -127,12 +127,13 @@ static void _main_event(void);
 static void _main_event_configure(XConfigureEvent * event);
 static void _main_event_expose(XExposeEvent * event);
 
-int gtoolkit_main(void)
+void gtoolkit_main(void)
 {
 	for(_gt.loop++; _gt.loop >= 1;)
 		while(XPending(_gt.display) > 0)
 			_main_event();
-	return 0;
+	XCloseDisplay(_gt.display);
+	memset(&_gt, 0, sizeof(_gt));
 }
 
 static void _main_event(void)
@@ -179,6 +180,16 @@ static void _main_event_expose(XExposeEvent * event)
 }
 
 
+/* gtoolkit_main_quit */
+void gtoolkit_main_quit(void)
+{
+	if(_gt.init == 0)
+		return;
+	if(_gt.loop > 0)
+		_gt.loop--;
+}
+
+
 /* gtoolkit_register_window */
 void gtoolkit_register_window(GWindow * gwindow)
 {
@@ -190,18 +201,6 @@ void gtoolkit_register_window(GWindow * gwindow)
 		return;
 	_gt.windows = p;
 	_gt.windows[_gt.windows_cnt++] = gwindow;
-}
-
-
-/* gtoolkit_quit */
-int gtoolkit_quit(void)
-{
-	if(_gt.init == 0)
-		return 0;
-	XCloseDisplay(_gt.display);
-	memset(&_gt, 0, sizeof(_gt));
-	_gt.init = 0;
-	return 0;
 }
 
 

@@ -12,7 +12,7 @@
 /* functions */
 /* useful */
 int gtoolkit_init(void);
-int gtoolkit_main(void);
-int gtoolkit_quit(void);
+void gtoolkit_main(void);
+void gtoolkit_main_quit(void);
 
 #endif /* !GTOOLKIT_GTOOLKIT_H */

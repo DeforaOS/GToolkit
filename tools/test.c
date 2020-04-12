@@ -16,6 +16,5 @@ int main(void)
 	gwindow_set_title(window, "Test window");
 	gwindow_show(window);
 	gtoolkit_main();
-	gtoolkit_quit();
 	return 0;
 }
