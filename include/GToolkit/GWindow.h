@@ -45,12 +45,16 @@ void gwindow_delete(GWindow * gwindow);
 
 
 /* accessors */
+bool gwindow_get_decorated(GWindow * gwindow);
+bool gwindow_get_modal(GWindow * gwindow);
 bool gwindow_get_resizable(GWindow * gwindow);
+void gwindow_get_size(GWindow * gwindow, int * width, int * height);
 char const * gwindow_get_title(GWindow * gwindow);
 void gwindow_set_resizable(GWindow * gwindow, bool resizable);
 void gwindow_set_title(GWindow * gwindow, char const * title);
 
 /* useful */
+void gwindow_resize(GWindow * gwindow, int width, int height);
 void gwindow_show(GWindow * gwindow);
 
 #endif /* !GTOOLKIT_GWINDOW_H */

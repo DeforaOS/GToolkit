@@ -44,6 +44,7 @@ struct _GWindow
 
 	/* GWindow */
 	char * title;
+	bool decorated;
 	bool fullscreen;
 	bool resizable;
 	int width;
@@ -69,6 +70,7 @@ GWindow * gwindow_new(void)
 	if((gwindow = malloc(sizeof(*gwindow))) == NULL)
 		return NULL; /* FIXME report */
 	gwindow->title = NULL;
+	gwindow->decorated = true;
 	gwindow->fullscreen = false;
 	gwindow->resizable = true;
 	gwindow->width = -1;
@@ -104,10 +106,34 @@ void gwindow_delete(GWindow * gwindow)
 
 
 /* accessors */
+/* gwindow_get_decorated */
+bool gwindow_get_decorated(GWindow * gwindow)
+{
+	return gwindow->decorated;
+}
+
+
+/* gwindow_get_modal */
+bool gwindow_get_modal(GWindow * gwindow)
+{
+	return false;
+}
+
+
 /* gwindow_get_resizable */
 bool gwindow_get_resizable(GWindow * gwindow)
 {
 	return gwindow->resizable;
+}
+
+
+/* gwindow_get_size */
+void gwindow_get_size(GWindow * gwindow, int * width, int * height)
+{
+	if(width != NULL)
+		*width = gwindow->width;
+	if(height != NULL)
+		*height = gwindow->height;
 }
 
 
@@ -178,6 +204,15 @@ void gwindow_event_expose(GWindow * gwindow, XExposeEvent * event)
 	glLoadIdentity();
 	/* FIXME redraw the window */
 	glXSwapBuffers(event->display, gwindow->window);
+}
+
+
+/* gwindow_resize */
+void gwindow_resize(GWindow * gwindow, int width, int height)
+{
+	gwindow->width = (width == -1 || width > 0) ? width : -1;
+	gwindow->height = (height == -1 || height > 0) ? height : -1;
+	/* FIXME actually resize the window */
 }
 
 
