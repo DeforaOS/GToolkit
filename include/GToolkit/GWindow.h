@@ -39,6 +39,7 @@ typedef struct _GWindow GWindow;
 
 /* functions */
 GWindow * gwindow_new(void);
+void gwindow_delete(GWindow * gwindow);
 
 
 /* accessors */

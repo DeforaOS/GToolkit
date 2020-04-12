@@ -155,9 +155,14 @@ static void _main_event_expose(XExposeEvent * event);
 
 void gtoolkit_main(void)
 {
+	size_t i;
+
 	for(_gt.loop++; _gt.loop >= 1;)
 		while(XPending(_gt.display) > 0)
 			_main_event();
+	for(i = 0; i < _gt.windows_cnt; i++)
+		if(_gt.windows[i] != NULL)
+			gwindow_delete(_gt.windows[i]);
 	XCloseDisplay(_gt.display);
 	memset(&_gt, 0, sizeof(_gt));
 }
