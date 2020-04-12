@@ -55,6 +55,7 @@ struct _GWindow
 
 
 /* prototypes */
+static void _gwindow_hide(GWindow * gwindow);
 static void _gwindow_show(GWindow * gwindow);
 
 
@@ -77,6 +78,8 @@ GWindow * gwindow_new(void)
 		return NULL;
 	}
 	gwidget_set_self(gwindow->gwidget, gwindow);
+	gwidget_set_handler(gwindow->gwidget, GWIDGET_HANDLER_HIDE,
+			_gwindow_hide);
 	gwidget_set_handler(gwindow->gwidget, GWIDGET_HANDLER_SHOW,
 			_gwindow_show);
 	gwindow->title = NULL;
@@ -243,6 +246,13 @@ void gwindow_resize(GWindow * gwindow, int width, int height)
 
 /* private */
 /* functions */
+/* gwindow_hide */
+static void _gwindow_hide(GWindow * gwindow)
+{
+	XUnmapWindow(gtoolkit_get_display(), gwindow->window);
+}
+
+
 /* gwindow_show */
 static void _gwindow_show(GWindow * gwindow)
 	/* FIXME accept flags (focus...) */

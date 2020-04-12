@@ -46,6 +46,7 @@ struct _GWidget
 	void * self;
 
 	/* handlers */
+	GWidgetHandlerSelf handler_hide;
 	GWidgetHandlerSelf handler_show;
 };
 
@@ -61,6 +62,7 @@ GWidget * gwidget_new(void)
 		return NULL;
 	gwidget->gwidget = gwidget;
 	gwidget->self = NULL;
+	gwidget->handler_hide = NULL;
 	gwidget->handler_show = NULL;
 	return gwidget;
 }
@@ -82,6 +84,9 @@ void gwidget_set_handler(GWidget * gwidget, GWidgetHandler handler, ...)
 	va_start(ap, handler);
 	switch(handler)
 	{
+		case GWIDGET_HANDLER_HIDE:
+			gwidget->handler_hide = va_arg(ap, GWidgetHandlerSelf);
+			break;
 		case GWIDGET_HANDLER_SHOW:
 			gwidget->handler_show = va_arg(ap, GWidgetHandlerSelf);
 			break;
@@ -98,6 +103,16 @@ void gwidget_set_self(GWidget * gwidget, void * self)
 
 
 /* useful */
+/* gwidget_hide */
+void gwidget_hide(GWidget * gwidget)
+{
+	if(gwidget->gwidget != gwidget)
+		gwidget = gwidget->gwidget;
+	if(gwidget->handler_hide != NULL)
+		gwidget->handler_hide(gwidget->self);
+}
+
+
 /* gwidget_show */
 void gwidget_show(GWidget * gwidget)
 {

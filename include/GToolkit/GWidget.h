@@ -39,6 +39,7 @@ typedef struct _GWidget GWidget;
 
 
 /* functions */
+void gwidget_hide(GWidget * gwidget);
 void gwidget_show(GWidget * gwidget);
 
 #endif /* !GTOOLKIT_GWIDGET_H */
