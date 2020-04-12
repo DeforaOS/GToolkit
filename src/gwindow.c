@@ -123,11 +123,12 @@ void gwindow_set_title(GWindow * gwindow, char const * title)
 
 	display = gtoolkit_get_display();
 	free(gwindow->title);
+	title = (title != NULL) ? title : "(untitled)";
 	/* XXX ignore errors */
-	gwindow->title = (title != NULL) ? strdup(title) : NULL;
+	gwindow->title = strdup(title);
 	if(!gwindow->fullscreen)
-		XSetStandardProperties(display, gwindow->window, gwindow->title,
-				gwindow->title, None, NULL, 0, NULL);
+		XSetStandardProperties(display, gwindow->window, title, title,
+				None, NULL, 0, NULL);
 }
 
 
